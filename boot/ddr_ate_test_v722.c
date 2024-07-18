@@ -232,4 +232,3 @@ int ate_vector_m3_addr_window(void)
 
     return ret;
 }
-

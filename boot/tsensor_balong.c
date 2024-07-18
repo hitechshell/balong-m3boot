@@ -172,6 +172,3 @@ int chip_tem_get(void)
 
 }
 #endif
-
-
-

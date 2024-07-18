@@ -308,5 +308,3 @@ void ate_test_m3_ddr_rw(void)
     }else{
     }
 }   
-
-

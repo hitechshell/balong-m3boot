@@ -452,4 +452,3 @@ L$_EXECUTE_BOOT_LOOP_RENEW:
 	.long   HI_M3TCM0_MEM_ADDR + ALIGN(m3_boot_loop - m3boot, 2)
 
 	.end
-

@@ -299,7 +299,3 @@ void dfs_to_max(void)
 	tmp &= ~0xFF000000;
 	writel(tmp, CM3_LP_PWRCTRL0);
 }
-
-
-
-

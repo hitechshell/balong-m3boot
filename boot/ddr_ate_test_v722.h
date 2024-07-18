@@ -44,4 +44,3 @@ extern void ddr_sample_window_get_empirical(void);
 extern s32 ddr_sample_window_test(void);
 extern int ate_vector_m3_addr_window(void);
 #endif
-

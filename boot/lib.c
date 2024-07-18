@@ -30,4 +30,3 @@ void print_info_with_u32(const void *msg, unsigned int  ulValue )
 
     print_info( curr_msg );
 }
-

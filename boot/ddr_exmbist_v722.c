@@ -1,4 +1,3 @@
-
 #include <product_config.h>
 #include <osl_types.h>
 #include <osl_bio.h>
@@ -665,4 +664,3 @@ void loopback_test(enum loopback_iolb type)
         
         loopback_writel(0x90000360 , 0x00060000);
 }
-

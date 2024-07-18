@@ -51,4 +51,3 @@ extern s32 ddr_sample_window_test_3(enum ddr_sample_window_type type);
 extern void ate_test_m3_ddr_window(void);
 extern void ate_test_m3_ddr_rw(void);
 #endif
-

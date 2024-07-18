@@ -108,5 +108,3 @@ unsigned int get_src_addr(void)
     print_info("\r\nerr: no fastboot addr\r\n");
     return 0;
 }
-
-
