@@ -15,7 +15,6 @@ void bsp_hi6551_reg_write( u16 addr, u8 value)
 {
     writel((u32) value,(u32)(HI_PMUSSI0_REGBASE_ADDR + (addr << 2)));
 }
-/*单位:mv*/
 int bsp_pmu_volt_set(int volt_id,int voltage_mv)
 {
     int iret=0;
@@ -49,11 +48,11 @@ int bsp_pmu_volt_set(int volt_id,int voltage_mv)
 
 #elif defined(CONFIG_PMIC_HI6559)
 /*****************************************************************************
- 函 数 名  : bsp_hi6559_reg_write
- 功能描述  : 写寄存器
- 输入参数  : 无
- 输出参数  : 无
- 返 回 值  : 无
+Function Name: bsp_hi6559_reg_write
+Function Description: Write register
+Input parameter: None
+Output parameter: None
+Return value: None
 *****************************************************************************/
 void bsp_hi6559_reg_write(u16 addr, u8 value)
 {
@@ -61,12 +60,11 @@ void bsp_hi6559_reg_write(u16 addr, u8 value)
 }
 
 /*****************************************************************************
- 函 数 名  : bsp_pmu_volt_set
- 功能描述  : 配置电源电压
- 输入参数  : @volt_id: 电源ID
-             @voltage_mv: 电压值(mV)
- 输出参数  : 无
- 返 回 值  : 无
+Function: bsp_pmu_volt_set
+Description: Set the voltage level of a power management unit
+Input parameters: @volt_id: PMU ID @voltage_mv: Voltage value (mV)
+Output parameters: None
+Return value: None
 *****************************************************************************/
 s32 bsp_pmu_volt_set(s32 volt_id,s32 voltage_mv)
 {
@@ -119,4 +117,3 @@ s32 bsp_pmu_resume(void)
     return 0;
 }
 #endif
-
