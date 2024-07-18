@@ -99,7 +99,6 @@ int tsensor_init(void)
 
 short trim_array[]={0,8,16,23,31,39,47,55,-8,-16,-23,-31,-39,-47,-55,-62};
 
-/*
 int tsensor_init(void)
 {
 	set_hi_temp_config_sample_num(0x2);		//Set the number of samples for one conversion
@@ -118,44 +117,7 @@ int tsensor_init(void)
 
 	return 0;
 }
-*/
 
-//the function is reverse engineered (since the source code for set_hi_temp_* is lost)
-/*
-int tsensor_init(void)
-{
-	unsigned int *puVar1;
-	puVar1 = (unsigned int *)0x9000B018;
-	*puVar1 = *puVar1 & 0xfffffc7f | 0x100;
-	*puVar1 = *puVar1 & 0xffffff9f | 0x40;
-	*puVar1 = *puVar1 & 0xffffffe3;
-	*puVar1 = *puVar1 & 0xfffffffc;
-//	puVar1[-5] = puVar1[-5] & 0xffffff00 | 6;
-	*(unsigned int *)(0x9000B018 - 0x5) = (*(unsigned int *)(0x9000B018 - 0x5)) & 0xffffff00 | 0x6;
-//	puVar1[-6] = puVar1[-6] | 1;
-	*(unsigned int *)(0x9000B018 - 0x6) = (*(unsigned int *)(0x9000B018 - 0x6)) | 0x1;
-	return 0;
-}
-*/
-
-#define uint unsigned int
-
-int tsensor_init(void)
-{
-	const unsigned int iVar1 = HI_TSENSOR_REGBASE_ADDR;
-	*(uint *)(iVar1 + 0x18) = *(uint *)(iVar1 + 0x18) & 0xfffffc00 | 0x140;
-	*(uint *)(iVar1 + 0x13) = *(uint *)(iVar1 + 0x13) & 0xffffff00 | 6;
-	*(uint *)(iVar1 + 0x12) = *(uint *)(iVar1 + 0x12) | 1;
-	return 0;
-}
-
-/*
-Note when chip obtains serial port data:
-(1) The default interval for obtaining data is 1.5ms
-(2) If the data exceeds 1300 (including 130) bytes, please pay attention to it
-*/
-
-/*
 int chip_tem_get(void)
 {
     int main_tem = 0;
@@ -172,23 +134,5 @@ int chip_tem_get(void)
     
     return (main_tem + trim_tem);
 
-}
-*/
-
-int chip_tem_get(void)
-{
-    int main_tem = 0;
-    int trim_tem = 0;
-    
-    int main_code = 0;
-    int trim_code = 0;
-    
-    main_code = readl(0x9000B028);
-    trim_code = readl(0x90000758);
-    
-    main_tem = TEMCODE_TO_TEMPERATURE(main_code);
-    trim_tem = trim_array[trim_code & 0xF];
-    
-    return (main_tem + trim_tem);
 }
 #endif
