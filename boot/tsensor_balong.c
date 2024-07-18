@@ -17,9 +17,9 @@
 int g_trim_tem = 0;
 
 /*
- * efuse烧写值(code)与温度(temp)的对应关系
- * bit数为11bits，MSB为符号位（1表示负，0表示正），为0.25℃（每bit），有效数值为[-1023，1023]，温度可烧写范围为[-255.75℃，255.75℃]。
- */
+Compare the programmed efuse values with the ambient temperature
+The bit value is 11 bits, with the MSB as the sign bit (1 indicating negative, 0 indicating positive), representing 0.25 C (per bit). The valid numerical values range from [-1023, 1023], corresponding to a temperature range of [-255.75 C, 255.75 C].
+*/
 int code2temperature(int code)
 {
     int temp = 0;
@@ -28,11 +28,13 @@ int code2temperature(int code)
 
     return (code & CODE_SIGN_MASK) ? -temp : temp;
 }
-/* ***********************************
-* chip温度获取接口，注意:
-* (1)温度采集时间至少为1.5ms
-* (2)超过1300(即130℃)，请丢弃
-*************************************/
+
+/*
+Chip data acquisition interface, note:
+(1) The acquisition rate is set to 1.5ms
+(2) Please note that if the acquisition rate exceeds 1300 (including 130) 
+*/
+
 int chip_tem_get(void)
 {
     unsigned main_tem = 0;
@@ -70,7 +72,7 @@ int get_trim_temp(void)
 
 int tsensor_init(void)
 {
-    /* 同一通道采样32次，多次采样采用均值，通道选择local，转换时间为0.512ms*/
+	/* There are 32 channels in total. The value to be used for each channel. The channel is selected as local. The conversion time is 0.512ms */
     writel(0x60400, HI_TSENSOR_BASE_ADDR + HI_TEMP_CONFIG1_OFFSET); 
 
     /* 开启去使能后等待 */
@@ -132,11 +134,12 @@ int tsensor_init(void)
 	return 0;
 }
 
-/* ***********************************
-* chip温度获取接口，注意:
-* (1)温度采集时间至少为1.5ms
-* (2)超过1300(即130℃)，请丢弃
-*************************************/
+/*
+Note when chip obtains serial port data:
+(1) The default interval for obtaining data is 1.5ms
+(2) If the data exceeds 1300 (including 130) bytes, please pay attention to it
+*/
+
 /*
 int chip_tem_get(void)
 {
