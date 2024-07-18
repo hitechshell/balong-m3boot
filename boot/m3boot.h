@@ -15,7 +15,7 @@
 
 /******************************* m3 *********************************/
 #define  M3_KERNEL_ENTRY             (HI_M3TCM0_MEM_ADDR + 4)
-#define  M3_BOOT_LOOP_NEW_ADDR       (HI_M3TCM0_MEM_ADDR + 78*1024) /* in ARMCMx.ld.s LENGTH = 78k */
+#define  M3_BOOT_LOOP_NEW_ADDR       (HI_M3TCM0_MEM_ADDR + 60*1024) /* in ARMCMx.ld.s LENGTH = 78k */
 
 #define  ALIGN( __size, __bits )      ( ( ( ( __size - 1 ) >> __bits ) + 1 ) << __bits )
 
