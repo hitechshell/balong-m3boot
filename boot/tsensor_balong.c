@@ -121,6 +121,7 @@ int tsensor_init(void)
 */
 
 //the function is reverse engineered (since the source code for set_hi_temp_* is lost)
+/*
 int tsensor_init(void)
 {
 	unsigned int *puVar1;
@@ -129,8 +130,22 @@ int tsensor_init(void)
 	*puVar1 = *puVar1 & 0xffffff9f | 0x40;
 	*puVar1 = *puVar1 & 0xffffffe3;
 	*puVar1 = *puVar1 & 0xfffffffc;
-	puVar1[-5] = puVar1[-5] & 0xffffff00 | 6;
-	puVar1[-6] = puVar1[-6] | 1;
+//	puVar1[-5] = puVar1[-5] & 0xffffff00 | 6;
+	*(unsigned int *)(0x9000B018 - 0x5) = (*(unsigned int *)(0x9000B018 - 0x5)) & 0xffffff00 | 0x6;
+//	puVar1[-6] = puVar1[-6] | 1;
+	*(unsigned int *)(0x9000B018 - 0x6) = (*(unsigned int *)(0x9000B018 - 0x6)) | 0x1;
+	return 0;
+}
+*/
+
+#define uint unsigned int
+
+int tsensor_init(void)
+{
+	const unsigned int iVar1 = HI_TSENSOR_REGBASE_ADDR;
+	*(uint *)(iVar1 + 0x18) = *(uint *)(iVar1 + 0x18) & 0xfffffc00 | 0x140;
+	*(uint *)(iVar1 + 0x13) = *(uint *)(iVar1 + 0x13) & 0xffffff00 | 6;
+	*(uint *)(iVar1 + 0x12) = *(uint *)(iVar1 + 0x12) | 1;
 	return 0;
 }
 
