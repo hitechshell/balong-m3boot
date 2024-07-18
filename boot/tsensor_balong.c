@@ -72,7 +72,7 @@ int get_trim_temp(void)
 
 int tsensor_init(void)
 {
-	/* There are 32 channels in total. The value to be used for each channel. The channel is selected as local. The conversion time is 0.512ms */
+    /* There are 32 channels in total. The value to be used for each channel. The channel is selected as local. The conversion time is 0.512ms */
     writel(0x60400, HI_TSENSOR_BASE_ADDR + HI_TEMP_CONFIG1_OFFSET); 
 
     /* 开启去使能后等待 */
@@ -148,7 +148,7 @@ int chip_tem_get(void)
     
     int main_code = 0;
     int trim_code = 0;
-	    
+    
     main_code = get_hi_temp_temp();
     trim_code = get_hi_sc_stat86_efuse_tsensor_trim() & ((0x1 << 8) - 1);
 
@@ -167,11 +167,13 @@ int chip_tem_get(void)
     
     int main_code = 0;
     int trim_code = 0;
-	    
-    main_code = (unsigned int *)0x9000B028;
-    trim_code = (unsigned int *)0x90000758;
-
-    return TEMCODE_TO_TEMPERATURE(main_code) + trim_array[trim_code & 0xF];
-
+    
+    main_code = readl(0x9000B028);
+    trim_code = readl(0x90000758);
+    
+    main_tem = TEMCODE_TO_TEMPERATURE(main_code);
+    trim_tem = trim_array[trim_code & 0xF];
+    
+    return (main_tem + trim_tem);
 }
 #endif
